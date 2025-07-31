@@ -51,11 +51,13 @@ namespace RateLimiterLib
             _window = window;
         }
 
-        public bool AllowRequest(string key)
+        public Task<bool> AllowRequestAsync(string key)
         {
             var now = DateTime.UtcNow;
             var entry = _entries.GetOrAdd(key, _ => new Entry(now));
-            return entry.TryIncrement(_limit, _window);
+            bool allowed = entry.TryIncrement(_limit, _window);
+            return Task.FromResult(allowed);
         }
+
     }
 }   

@@ -44,10 +44,15 @@ namespace RateLimiterLib
             _window = window;
         }
 
-        public bool AllowRequest(string key)
+        public Task<bool> AllowRequestAsync(string key)
         {
             var entry = _entries.GetOrAdd(key, _ => new SlidingEntry());
-            return entry.TryAllow(_limit, _window);
+
+            bool allowed = entry.TryAllow(_limit, _window);
+
+            return Task.FromResult(allowed);
         }
+
+
     }
 }
