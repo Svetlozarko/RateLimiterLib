@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Reflection; // For MethodInfo
 using System.Threading.Tasks;
+using RateLimiterLib.Enums;
 
 namespace RateLimiterLib
 {
@@ -17,7 +18,10 @@ namespace RateLimiterLib
         private readonly int _maxAttempts;
         private readonly TimeSpan _window;
 
-        public RateLimitAttribute(int maxAttempts, int seconds)
+        public RateLimitAttribute(
+            int maxAttempts = 10,
+            int seconds = 60, 
+            RateLimitStrategy strategy = RateLimitStrategy.FixedWindow)
         {
             _maxAttempts = maxAttempts;
             _window = TimeSpan.FromSeconds(seconds);
