@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace RateLimiterLib
 {
-    public class RateLimiter
+    public class RateLimiterFixedWindow : IRateLimiter
     {
         private readonly int _limit;
         private readonly TimeSpan _window;
@@ -45,7 +45,7 @@ namespace RateLimiterLib
             }
         }
 
-        public RateLimiter(int limit, TimeSpan window)
+        public RateLimiterFixedWindow(int limit, TimeSpan window)
         {
             _limit = limit;
             _window = window;
